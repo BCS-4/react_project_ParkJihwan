@@ -55,7 +55,12 @@ const MintModal: FC<MintModalProps> = ({
     <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
       <div className="p-8 bg-white rounded-xl">
         <div className="text-right mb-8">
-          <button onClick={() => setIsOpen(false)}>x</button>
+          <button
+            className="font-bold text-red-600"
+            onClick={() => setIsOpen(false)}
+          >
+            x
+          </button>
         </div>
         {metadata ? (
           <div className="w-60">
