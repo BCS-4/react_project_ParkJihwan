@@ -14,7 +14,7 @@ contract MintNFT is ERC721Enumerable{
         metadataURI = _metadataURI;
     }
 
-    function minNFT() public {
+    function mintNFT() public {
         require(totalSupply() < maxSupply, "No more mint.");
 
         uint tokenId = totalSupply() +1;
