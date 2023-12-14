@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import MintModal from "../components/MintModal";
 import { NftMetadata, OutletContext } from "../types";
 import axios from "axios";
@@ -10,6 +10,8 @@ const My: FC = () => {
   const [metadataArray, setMetadataArray] = useState<NftMetadata[]>([]);
 
   const { mintNftContract, account } = useOutletContext<OutletContext>();
+
+  const navigate = useNavigate();
 
   const onClickMintModal = () => {
     if (!account) return;
@@ -71,7 +73,7 @@ const My: FC = () => {
               key={i}
               name={v.name}
               image={v.image}
-              tokenId={v.tokenId!} // 개발자가 문법을 강제적으로 확인시킴
+              tokenId={v.tokenId!} // ! : 개발자가 타입을 강제적으로 확인시킴
             />
           ))}
         </ul>
