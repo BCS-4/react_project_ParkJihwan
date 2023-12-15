@@ -8,7 +8,7 @@ contract SaleNFT {
     mapping(uint => uint) public nftPrices;
 
     uint[] public onSaleNFTs;
-    //판매
+
    function setForSaleNFT(address _mintNftAddress, uint _tokenId, uint _price) public {
         ERC721 mintNftContract = ERC721(_mintNftAddress);
         address nftOwner = mintNftContract.ownerOf(_tokenId);
@@ -22,12 +22,12 @@ contract SaleNFT {
 
         onSaleNFTs.push(_tokenId);
    }
-    // 구매
+
     function purchaseNFT(address _mintNftAddress, uint _tokenId) public payable {
         ERC721 mintNftContract = ERC721(_mintNftAddress);
         address nftOwner = mintNftContract.ownerOf(_tokenId);
 
-        require(msg.sender != nftOwner, "Call is NFT owner.");
+        require(msg.sender != nftOwner, "Caller is NFT owner.");
         require(nftPrices[_tokenId] > 0, "This NFT not sale.");
         require(nftPrices[_tokenId] <= msg.value, "Caller sent lower than price.");
 
@@ -43,7 +43,7 @@ contract SaleNFT {
     function checkZeroPrice() public {
         for(uint i = 0; i < onSaleNFTs.length; i++) {
             if(nftPrices[onSaleNFTs[i]] == 0) {
-                onSaleNFTs[0] = onSaleNFTs[onSaleNFTs.length -1];
+                onSaleNFTs[i] = onSaleNFTs[onSaleNFTs.length - 1];
                 onSaleNFTs.pop();
             }
         }

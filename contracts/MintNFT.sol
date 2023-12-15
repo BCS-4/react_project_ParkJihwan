@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract MintNFT is ERC721Enumerable{
+contract MintNFT is ERC721Enumerable {
     string metadataURI;
     uint maxSupply;
 
@@ -17,12 +17,12 @@ contract MintNFT is ERC721Enumerable{
     function mintNFT() public {
         require(totalSupply() < maxSupply, "No more mint.");
 
-        uint tokenId = totalSupply() +1;
-        
+        uint tokenId = totalSupply() + 1;
+
         _mint(msg.sender, tokenId);
     }
 
-    function tokenURI(uint _tokenId) public override view returns(string memory){
-        return string(abi.encodePacked(metadataURI, '/', Strings.toString(_tokenId),'.json'));
+    function tokenURI(uint _tokenId) public override view returns(string memory) {
+        return string(abi.encodePacked(metadataURI, '/', Strings.toString(_tokenId), '.json'));
     }
 }

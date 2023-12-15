@@ -4,10 +4,12 @@ import MintModal from "../components/MintModal";
 import { NftMetadata, OutletContext } from "../types";
 import axios from "axios";
 import MyNftCard from "../components/MyNftCard";
+import { SALE_NFT_CONTRACT } from "../abis/contractAddress";
 
 const My: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [metadataArray, setMetadataArray] = useState<NftMetadata[]>([]);
+  const [saleStatus, setSaleStatus] = useState<boolean>(false);
 
   const { mintNftContract, account } = useOutletContext<OutletContext>();
 
@@ -50,16 +52,57 @@ const My: FC = () => {
     }
   };
 
+  const getSaleStatus = async () => {
+    try {
+      const isApproved: boolean = await mintNftContract.methods
+        // @ts-expect-error
+        .isApprovedForAll(account, SALE_NFT_CONTRACT)
+        .call();
+
+      setSaleStatus(isApproved);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onClickSaleStatus = async () => {
+    try {
+      await mintNftContract.methods
+        // @ts-expect-error
+        .setApprovalForAll(SALE_NFT_CONTRACT, !saleStatus)
+        .send({
+          from: account,
+        });
+
+      setSaleStatus(!saleStatus);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getMyNFTs();
   }, [mintNftContract, account]);
 
-  useEffect(() => console.log(metadataArray), [metadataArray]);
+  useEffect(() => {
+    if (account) return;
+
+    navigate("/");
+  }, [account]);
+
+  useEffect(() => {
+    if (!account) return;
+
+    getSaleStatus();
+  }, [account]);
 
   return (
     <>
       <div className="grow">
-        <div className="text-right p-2">
+        <div className="flex justify-between p-2">
+          <button className="hover:text-gray-500" onClick={onClickSaleStatus}>
+            Sale Approved: {saleStatus ? "TRUE" : "FALSE"}
+          </button>
           <button className="hover:text-gray-500" onClick={onClickMintModal}>
             Mint
           </button>
@@ -67,13 +110,14 @@ const My: FC = () => {
         <div className="text-center py-8">
           <h1 className="font-bold text-2xl">My NFTs</h1>
         </div>
-        <ul className="bg-white border border-black shadow-xl shadow-slate-700 p-8 grid grid-cols-2 gap-8">
+        <ul className="p-8 grid grid-cols-2 gap-8">
           {metadataArray?.map((v, i) => (
             <MyNftCard
               key={i}
-              name={v.name}
               image={v.image}
+              name={v.name}
               tokenId={v.tokenId!} // ! : 개발자가 타입을 강제적으로 확인시킴
+              saleStatus={saleStatus}
             />
           ))}
         </ul>
