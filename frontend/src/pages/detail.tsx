@@ -42,18 +42,22 @@ const Detail: FC = () => {
         Back
       </button>
       {metadata && (
-        <div className="w-60">
-          <img className="w-60 h-60" src={metadata.image} alt={metadata.name} />
-          <div className="font-semibold mt-1">{metadata.name}</div>
-          <div className="mt-1">{metadata.description}</div>
-          <ul className="mt-1 flex flex-wrap gap-1">
-            {metadata.attributes.map((v, i) => (
-              <li key={i}>
-                <span className="font-semibold">{v.trait_type}</span>
-                <span>: {v.value}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="w-90 flex p-10 bg-gray-100 shadow-2xl border border-gray-100">
+          <div className="w-1/2 mr-2">
+            <img className="w-72" src={metadata.image} alt={metadata.name} />
+          </div>
+          <div className="w-1/2 ml-2">
+            <div className="font-semibold mt-1">{metadata.name}</div>
+            <div className="mt-1">{metadata.description}</div>
+            <ul className="mt-4 flex gap-1 flex-col">
+              {metadata.attributes.map((v, i) => (
+                <li key={i}>
+                  <span className="font-semibold">{v.trait_type}</span>
+                  <span>: {v.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </div>

@@ -41,10 +41,8 @@ const Sale: FC = () => {
     getSaleNFTs();
   }, [saleNftContract]);
 
-  useEffect(() => console.log(metadataArray), [metadataArray]);
-
   return (
-    <div className="grow bg-green-100">
+    <div className="grow">
       <div className="text-center py-8">
         <h1 className="font-bold text-2xl">Sale NFTs</h1>
       </div>
@@ -55,6 +53,8 @@ const Sale: FC = () => {
             image={v.image}
             name={v.name}
             tokenId={v.tokenId!}
+            metadataArray={metadataArray}
+            setMetadataArray={setMetadataArray}
           />
         ))}
       </ul>

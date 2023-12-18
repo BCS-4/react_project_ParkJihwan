@@ -99,18 +99,24 @@ const My: FC = () => {
   return (
     <>
       <div className="grow">
-        <div className="flex justify-between p-2">
-          <button className="hover:text-gray-500" onClick={onClickSaleStatus}>
+        <div className="flex justify-between p-2 mt-2">
+          <button
+            className="hover:text-gray-500 font-thin bg-gray-100 p-2 rounded-xl"
+            onClick={onClickSaleStatus}
+          >
             Sale Approved: {saleStatus ? "TRUE" : "FALSE"}
           </button>
-          <button className="hover:text-gray-500" onClick={onClickMintModal}>
+          <button
+            className="hover:text-gray-500 font-thin bg-gray-100 p-2 rounded-xl"
+            onClick={onClickMintModal}
+          >
             Mint
           </button>
         </div>
         <div className="text-center py-8">
           <h1 className="font-bold text-2xl">My NFTs</h1>
         </div>
-        <ul className="p-8 grid grid-cols-2 gap-8">
+        <ul className="p-8 grid grid-cols-2 gap-8 bg-white shadow-2xl border border-black">
           {metadataArray?.map((v, i) => (
             <MyNftCard
               key={i}
