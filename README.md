@@ -21,35 +21,67 @@
 ## 폴더 구성
 
 |------contracts
+
 | |
+
 | |---- MintNFT.sol
+
 | |---- SaleNFT.sol
+
 |
+
 |------Frontend
+
 | |
+
 | |------ components
+
 | | |
+
 | | |---- Header.tsx
+
 | | |---- Layout.tsx
+
 | | |---- MintModal.tsx
+
 | | |---- MyNftCard.tsx
+
 | | |---- NftCard.tsx
+
 | | |---- SaleNftCard.tsx
+
 | |------ pages
+
 | | |
+
 | | |---- detail.tsx
+
 | | |---- home.tsx
+
 | | |---- my.tsx
+
 | | |---- sale.tsx
+
 | |
+
 | |------ abis
+
 | | |
+
 | | |---- contractAddress.ts
+
 | | |---- mintNftABi.json
+
 | | |---- saleNftAbi.json
+
 | |
+
 | |------ types
+
 | | |
+
 | | |---- index.d.ts
+
 | |
+
 | |------App.tsx
